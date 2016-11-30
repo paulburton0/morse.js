@@ -1,0 +1,15 @@
+{
+  "name": "morse.js",
+  "version": "0.0.1",
+  "description": "A morse code practice generator",
+  "main": "morse.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Burton",
+  "license": "ISC",
+  "dependencies": {
+    "tonegenerator": "^0.2.1",
+    "waveheader": "0.0.2"
+  }
+}
