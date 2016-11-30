@@ -5,7 +5,7 @@ morse code.
 
 Usage
     
-node index.js -s 10 -t 800 -i \'Testing 1 2 3\' -o ./morse.wav');
+node index.js -s 10 -t 800 -i 'Testing 1 2 3' -o ./morse.wav
 
 Options
 
