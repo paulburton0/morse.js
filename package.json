@@ -1,8 +1,8 @@
 {
-  "name": "morse.js",
+  "name": "morsecodify",
   "version": "0.0.1",
   "description": "A morse code practice generator",
-  "main": "morse.js",
+  "main": "morsecodify.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
