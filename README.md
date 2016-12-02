@@ -13,15 +13,17 @@ morse.js exports one function: codify. codify takes several arguments:
 * callback - uses the Node JS convention of using the first argument for errors, and the second for the buffer object returned from codify.
 
 ```
-    morse.codify(toneFreq, wpm, farnsworth, inputText, function(err, codeBuffer){
-        if(err){
-            console.error(err);
-        } else {
-            var file = fs.createWriteStream('morse.wav');
-            file.write(codeBuffer);
-            file.end();
-        }
-    });
+morse = require('morse');
+
+morse.codify(toneFreq, wpm, farnsworth, inputText, function(err, codeBuffer){
+    if(err){
+        console.error(err);
+    } else {
+        var file = fs.createWriteStream('morse.wav');
+        file.write(codeBuffer);
+        file.end();
+    }
+});
 ```
 
 # morsecmd
