@@ -12,7 +12,7 @@ morse.js exports one function: codify. codify takes several arguments:
 * inputText - the text to turn into morse code.
 * callback - uses the Node JS convention of using the first argument for errors, and the second for the buffer object returned from codify.
 
-
+```
     morse.codify(toneFreq, wpm, farnsworth, inputText, function(err, codeBuffer){
         if(err){
             console.error(err);
@@ -22,7 +22,7 @@ morse.js exports one function: codify. codify takes several arguments:
             file.end();
         }
     });
-
+```
 
 # morsecmd
 
