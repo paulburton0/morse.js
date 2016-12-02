@@ -15,7 +15,7 @@ var playlistLocation = 'https://example.com/morse/'; // The location to add to t
 var toneFreq = 800;
 var wpm = 18;
 var farnsworth = 7;
-var playList;
+var playList = '#EXTM3U\n';
 
 feed(feedUrl, function(err, articles){
     if(err) console.error('There was an error: %s', err);
@@ -24,10 +24,8 @@ feed(feedUrl, function(err, articles){
             if(err){
                 console.error(err);
             } else {
-                var file = fs.createWriteStream(filesLocation + 'story' + i + '.wav');
-                file.write(codeBuffer);
-                file.end();
-                playList = !playList ? playlistLocation + 'story' + i + '.wav\n' : playList.concat(playlistLocation + 'story' + i + '.wav\n');
+                fs.writeFileSync(filesLocation + 'story' + i + '.wav', codeBuffer);
+                playList += '#EXTINF:0,' + articles[i].title + '\n' + playlistLocation + 'story' + i + '.wav\n';
                 if(i == len - 1){
                     list = fs.createWriteStream(filesLocation + 'news.m3u');
                     listBuffer = new Buffer(playList);

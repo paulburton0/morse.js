@@ -73,19 +73,20 @@ module.exports.codify = function(toneFreq, wpm, farnsworth, text, cb){
         ';' : dah.concat(elementSpace, dit, elementSpace, dah, elementSpace, dit, elementSpace, dah, elementSpace, dit),
         ',' : dah.concat(elementSpace, dah, elementSpace, dit, elementSpace, dit, elementSpace, dah, elementSpace, dah),
         '!' : dah.concat(elementSpace, dah, elementSpace, dah, elementSpace, dit),
-        '\'' : dit.concat(elementSpace, dah, elementSpace, dah, elementSpace, dah, elementSpace, dit),
-        '\"' : dit.concat(elementSpace, dah, elementSpace, dit, elementSpace, dit, elementSpace, dah, elementSpace, dit)
+        '-' : dah.concat(elementSpace, dit, elementSpace, dit, elementSpace, dit, elementSpace, dit, elementSpace, dah)
     }
 
     var morseText = new Array;
 
-    text.map(function(element){
-        if(element == ' '){
+    for(var i = 0; i < text.length; i++){
+        if(text[i] == ' '){
             morseText = morseText.concat(wordSpace);
+        } else if(text[i] == ('$' || '\'' || '\"') ){
+            continue;
         } else {
-            morseText = morseText.concat(characters[element.toLowerCase()], charSpace);
+            morseText = morseText.concat(characters[text[i].toLowerCase()], charSpace);
         }
-    });
+    }
 
     wavHeader = header(morseText.length, {
         bitDepth: 8
