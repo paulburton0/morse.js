@@ -1,0 +1,42 @@
+#!/usr/bin/env node
+
+// NOTE: In order to use morsenews, you must have the `feed-read' module installed.
+var feed = require("feed-read");
+
+var morse = require('./morse');
+var fs = require('fs');
+
+// Add the URL of whatever RSS feed you want.
+//var feedUrl = 'http://feeds.washingtonpost.com/rss/world';
+var feedUrl = 'http://feeds.washingtonpost.com/rss/national';
+
+var filesLocation = '/var/www/html/morse/'; // The location on the local filesystem to store the generated files.
+var playlistLocation = 'https://example.com/morse/'; // The location to add to the playlist file (e.g. if you want to serve the files from a webserver).
+var toneFreq = 800;
+var wpm = 18;
+var farnsworth = 7;
+var playList;
+
+feed(feedUrl, function(err, articles){
+    if(err) console.error('There was an error: %s', err);
+    for (var i = 0, len = articles.length; i < len; i++) {
+        morse.codify(toneFreq, wpm, farnsworth, articles[i].title+' =', function(err, codeBuffer){
+            if(err){
+                console.error(err);
+            } else {
+                var file = fs.createWriteStream(filesLocation + 'story' + i + '.wav');
+                file.write(codeBuffer);
+                file.end();
+                playList = !playList ? playlistLocation + 'story' + i + '.wav\n' : playList.concat(playlistLocation + 'story' + i + '.wav\n');
+                if(i == len - 1){
+                    list = fs.createWriteStream(filesLocation + 'news.m3u');
+                    listBuffer = new Buffer(playList);
+                    list.write(listBuffer);
+                    list.end();
+                }
+            }
+        });
+    }
+});
+
+

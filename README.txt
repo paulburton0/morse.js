@@ -1,7 +1,8 @@
-Morse.js
+#Morse.js
 
 Morse.js is a Node JS app that converts text strings into WAV files containing
-morse code.
+morse code. There are also a few utilities included here that use the morse.js
+module.
 
 Usage
     
