@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
 // NOTE: In order to use morsenews, you must have the `feed-read' module installed.
-var feed = require("feed-read");
-
-var morse = require('./morse');
+var feed = require('feed-read');
+var morse = require('./morsecodify');
 var fs = require('fs');
 
 // Add the URL of whatever RSS feed you want.

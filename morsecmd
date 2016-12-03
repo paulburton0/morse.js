@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 fs = require('fs');
-morse = require('./morse');
+morse = require('./morsecodify');
 const commandLineArgs = require('command-line-args');
 
 const optionDefinitions = [
