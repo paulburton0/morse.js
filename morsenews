@@ -2,35 +2,43 @@
 
 // NOTE: In order to use morsenews, you must have the `feed-read' module installed.
 var feed = require('feed-read');
-var morse = require('./morsecodify');
+var morse = require('morsecodify');
 var fs = require('fs');
 
 // Add the URL of whatever RSS feed you want.
 //var feedUrl = 'http://feeds.washingtonpost.com/rss/world';
 var feedUrl = 'http://feeds.washingtonpost.com/rss/national';
-
 var filesLocation = '/var/www/html/morse/'; // The location on the local filesystem to store the generated files.
-var playlistLocation = 'https://example.com/morse/'; // The location to add to the playlist file (e.g. if you want to serve the files from a webserver).
+var playlistLocation = 'http://www.example.com/morse/'; // The location to add to the playlist file (e.g. if you want to serve the files from a webserver).
 var toneFreq = 800;
 var wpm = 18;
 var farnsworth = 7;
+
+
 var playList = '#EXTM3U\n';
 
 feed(feedUrl, function(err, articles){
     if(err) console.error('There was an error: %s', err);
-    for (var i = 0, len = articles.length; i < len; i++) {
-        morse.codify(toneFreq, wpm, farnsworth, articles[i].title+' =', function(err, codeBuffer){
+    for (var i = 0, iterator = articles.length; i < articles.length; i++) {
+        morse.codify(toneFreq, wpm, farnsworth, articles[i].title+' =', function(err, codeBuffer, translated){
             if(err){
                 console.error(err);
             } else {
-                fs.writeFileSync(filesLocation + 'story' + i + '.wav', codeBuffer);
-                playList += '#EXTINF:0,' + articles[i].title + '\n' + playlistLocation + 'story' + i + '.wav\n';
-                if(i == len - 1){
-                    list = fs.createWriteStream(filesLocation + 'news.m3u');
-                    listBuffer = new Buffer(playList);
-                    list.write(listBuffer);
-                    list.end();
-                }
+                var fileName = 'story' + i + '.wav';
+                fs.writeFile(filesLocation + fileName, codeBuffer, function(err){
+                    iterator--;
+                    if(err){
+                        console.error(err);
+                    }
+                    playList += '#EXTINF:0,' + translated + '\n' + playlistLocation + fileName + '\n';
+                    if(!iterator){
+                        fs.writeFile(filesLocation + 'news.m3u', playList, function(err){
+                            if(err){
+                                console.error(err);
+                            }
+                        });
+                    }
+                });
             }
         });
     }

@@ -77,14 +77,17 @@ module.exports.codify = function(toneFreq, wpm, farnsworth, text, cb){
     }
 
     var morseText = new Array;
+    var translated = '';
 
     for(var i = 0; i < text.length; i++){
         if(text[i] == ' '){
             morseText = morseText.concat(wordSpace);
-        } else if(text[i] == ('$' || '\'' || '\"') ){
+            translated += text[i];
+        } else if(text[i] == '$' || text[i] == '\'' || text[i] == '\"' || text[i] == '‘' || text[i] == '’'){
             continue;
         } else {
             morseText = morseText.concat(characters[text[i].toLowerCase()], charSpace);
+            translated += text[i].toLowerCase();
         }
     }
 
@@ -100,5 +103,5 @@ module.exports.codify = function(toneFreq, wpm, farnsworth, text, cb){
 
     buffer = Buffer.concat([wavHeader, codeBuffer], wavHeader.length + codeBuffer.length)
 
-    return cb(null, buffer);
+    return cb(null, buffer, translated);
 }
