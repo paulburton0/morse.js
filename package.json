@@ -1,6 +1,6 @@
 {
   "name": "morsecodify",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A morse code practice generator",
   "main": "morsecodify.js",
   "scripts": {
@@ -11,5 +11,9 @@
   "dependencies": {
     "tonegenerator": "^0.2.1",
     "waveheader": "0.0.2"
-  }
+  },
+  "repository" :
+    { "type" : "git",
+      "url" : "https://github.com/paulburton0/morsenews.git"
+    }
 }
