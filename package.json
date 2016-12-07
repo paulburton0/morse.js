@@ -1,6 +1,6 @@
 {
   "name": "morsecodify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A morse code practice generator",
   "main": "morsecodify.js",
   "scripts": {

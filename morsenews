@@ -9,10 +9,10 @@ var fs = require('fs');
 //var feedUrl = 'http://feeds.washingtonpost.com/rss/world';
 var feedUrl = 'http://feeds.washingtonpost.com/rss/national';
 var filesLocation = '/var/www/html/morse/'; // The location on the local filesystem to store the generated files.
-var playlistLocation = 'http://www.example.com/morse/'; // The location to add to the playlist file (e.g. if you want to serve the files from a webserver).
+var playlistLocation = 'https://soren625.duckdns.org:442/morse/'; // The location to add to the playlist file (e.g. if you want to serve the files from a webserver).
 var toneFreq = 800;
 var wpm = 18;
-var farnsworth = 7;
+var farnsworth = 3;
 
 
 var playList = '#EXTM3U\n';
