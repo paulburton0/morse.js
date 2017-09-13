@@ -1,10 +1,12 @@
 var tone = require('tonegenerator');
 var header = require('waveheader');
+var latinize = require('latinize');
 
 module.exports.codify = function(toneFreq, wpm, farnsworth, text, cb){
     if(!text){
         return cb('No input text was provided.');
     }
+    text = latinize(text);
     var samples = 44100; 
     var volume = 30;
     var text = text.split('');

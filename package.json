@@ -1,6 +1,6 @@
 {
   "name": "morsecodify",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A morse code practice generator",
   "main": "morsecodify.js",
   "scripts": {
@@ -9,11 +9,12 @@
   "author": "Paul Burton",
   "license": "ISC",
   "dependencies": {
+    "latinize": "^0.4.0",
     "tonegenerator": "^0.2.1",
     "waveheader": "0.0.2"
   },
-  "repository" :
-    { "type" : "git",
-      "url" : "https://github.com/paulburton0/morsecodify"
-    }
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/paulburton0/morsecodify"
+  }
 }
