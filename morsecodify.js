@@ -123,7 +123,9 @@ module.exports.codify = function(toneFreq, wpm, farnsworth, text, replaceChars, 
         return val + 128;
     });
 
-    var oe = new ogg.Encoder(codeData);
+    var codeBuffer = new Buffer(codeData)
+
+    var oe = new ogg.Encoder(codeBuffer);
     var ve = new vorbis.Encoder(oe.stream());
 
     return cb(null, ve, translated);
