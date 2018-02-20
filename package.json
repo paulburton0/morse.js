@@ -11,6 +11,7 @@
   "dependencies": {
     "latinize": "^0.4.0",
     "tonegenerator": "^0.2.1",
+    "vorbis": "git+https://github.com/TooTallNate/node-vorbis.git",
     "waveheader": "0.0.2"
   },
   "repository": {
