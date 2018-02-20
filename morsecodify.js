@@ -1,6 +1,9 @@
 var tone = require('tonegenerator');
 var header = require('waveheader');
+var ogg = require('ogg');
+var vorbis = require('vorbis');
 var latinize = require('latinize');
+var replaceChars;
 
 module.exports.codify = function(toneFreq, wpm, farnsworth, text, replaceChars, cb){
     if(!text){
@@ -22,16 +25,18 @@ module.exports.codify = function(toneFreq, wpm, farnsworth, text, replaceChars, 
     // excludeChars permits you to completely eliminate characters from the morse output.
     var excludeChars = new Array('@', '*', '(', ')', '"', '‘', '’', '\'');
 
+    if(!replaceChars){
     // replaceChars permits you to add custom mapping of words in the source text to replacement strings.
     // To add a new mapping, add a new pair like the examples below. Note the use of spaces in both
     // strings to replace and replacement strings.
-    //var replaceChars = new Array(
-                                 //' $', ' usd ', 
-                                 //'% ', ' pct ', 
-                                 //' & ', ' es ', 
-                                 //' # ', ' nr ',
-                                 //' and ', ' es '
-                                 //);
+    replaceChars = new Array(
+                            ' $', ' usd ', 
+                            '% ', ' pct ', 
+                            ' & ', ' es ', 
+                            ' #', ' nr ',
+                            ' and ', ' es '
+                            );
+    }
 
     if(farnsworth){
         fDitDuration = (1200/farnsworth)/1000;
@@ -114,17 +119,12 @@ module.exports.codify = function(toneFreq, wpm, farnsworth, text, replaceChars, 
         }
     }
 
-    wavHeader = header(morseText.length, {
-        bitDepth: 8
-    });
-
-    var codeData = Uint8Array.from(morseText, function(val) {
+    var codeData = Uint32Array.from(morseText, function(val) {
         return val + 128;
     });
 
-    codeBuffer = new Buffer(codeData);
+    var oe = new ogg.Encoder(codeData);
+    var ve = new vorbis.Encoder(oe.stream());
 
-    buffer = Buffer.concat([wavHeader, codeBuffer], wavHeader.length + codeBuffer.length)
-
-    return cb(null, buffer, translated);
+    return cb(null, ve, translated);
 }
